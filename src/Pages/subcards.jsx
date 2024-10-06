@@ -3,15 +3,11 @@ import { useLocation } from "react-router-dom";
 import "../style.css"
 import YouTube from 'react-youtube';
 
-
-
-
-
-import { Toast } from 'react-bootstrap'; // Add this import
+import { Toast } from 'react-bootstrap';
 
 export default function Subcards() {
   let [trailers, setTrailers] = useState("");
-  let [showToast, setShowToast] = useState(false); // New state for toast
+  let [showToast, setShowToast] = useState(false); 
   let location = useLocation();
   let specificMovie = location.state.x;
 
@@ -20,7 +16,7 @@ export default function Subcards() {
       .then(x => x.json())
       .then(x => {
         if (x.results.length === 0) {
-          setShowToast(true); // Show toast if no trailer found
+          setShowToast(true); 
         } else {
           setTrailers(x.results[0].key);
         }
@@ -36,14 +32,12 @@ export default function Subcards() {
       <img  className="subcardsimg" src={`https://image.tmdb.org/t/p/original/${specificMovie.backdrop_path}`} alt="" />
     
       <h4>{specificMovie.overview}</h4>
-      
 
       <button onClick={() => Trailer(specificMovie.id)}>Click for trailer</button>
       <div id="trailer">
         {trailers && <YouTube videoId={trailers} />}
       </div>
 
-      {/* Toast Notification */}
       <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
         <Toast.Body style={{color:'black',width:'400px',height:'50px',fontSize:'20px'}}>No trailer found for this movie!</Toast.Body>
       </Toast>
